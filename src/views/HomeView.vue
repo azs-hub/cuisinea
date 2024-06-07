@@ -37,11 +37,9 @@ import { getFakeRecipes } from '@/mocks/recipe.mock'
 const recipes: Recipe[] = getFakeRecipes(5)
 const selectedCategory: Ref<RecipeCategory | undefined> = ref(undefined)
 
-// defineProps<{
-//   msg: string
-// }>()
-
-/* Computed */
+/* 
+  Computed
+*/
 
 const sortedRecipes = computed<Recipe[]>(() => {
   if (!selectedCategory?.value?.id) return recipes
@@ -52,7 +50,6 @@ const sortedRecipes = computed<Recipe[]>(() => {
 })
 
 const isRecipesAvailable = computed<boolean>(() => {
-  console.log(sortedRecipes.value)
   return !!sortedRecipes.value.length
 })
 

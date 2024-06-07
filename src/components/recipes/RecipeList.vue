@@ -2,29 +2,20 @@
   <div
     v-for="recipe in recipes"
     :key="recipe.id"
+    data-testid="recipe-list-container"
   >
-    <RecipeCard
+    <CardRecipe
       :recipe="recipe"
       class="mb-5"
     />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import RecipeCard from '@/components/recipes/CardRecipes.vue'
+<script setup lang="ts">
+import CardRecipe from '@/components/recipes/CardRecipe.vue'
 import type { Recipe } from '@/types/Recipe'
 
-export default defineComponent({
-  name: 'RecipesList',
-  components: {
-    RecipeCard,
-  },
-  props: {
-    recipes: {
-      type: Object as () => Recipe[],
-      required: true,
-    },
-  },
-})
+defineProps<{
+  recipes: Recipe[]
+}>()
 </script>

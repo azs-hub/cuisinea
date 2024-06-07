@@ -3,7 +3,10 @@
     class="container"
     data-testid="recipe-card-container"
   >
-    <article class="card p-5">
+    <article
+      v-if="recipe?.id"
+      class="card p-5"
+    >
       <div class="post-slider slider-sm">
         <img
           :src="recipe.image"
@@ -43,18 +46,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { Recipe } from '@/types/Recipe'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'RecipeCard',
-  props: {
-    recipe: {
-      type: Object as () => Recipe,
-      required: true,
-    },
-  },
-})
+defineProps<{
+  recipe: Recipe
+}>()
 </script>
 <style></style>
