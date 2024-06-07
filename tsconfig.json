@@ -1,14 +1,38 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "isolatedModules": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "lib": ["ESNext", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@src": ["src"],
+      "@/*": ["./src/*"]
     },
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.vitest.json"
-    }
-  ]
+    "allowJs": true,
+    "noEmit": true
+  },
+  "include": ["./src/**/*", "./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.d.ts", "./src/**/*.vue"],
+  "exclude": ["node_modules"]
+  // "references": [
+  //   {
+  //     "path": "./tsconfig.node.json"
+  //   },
+  //   {
+  //     "path": "./tsconfig.app.json"
+  //   },
+  //   {
+  //     "path": "./tsconfig.vitest.json"
+  //   }
+  // ]
 }
