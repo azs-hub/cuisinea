@@ -3,14 +3,7 @@ import { mount } from '@vue/test-utils'
 import RecipeList from '@/components/recipes/RecipeList.vue'
 import { Recipe } from '@/types/Recipe'
 import { getFakeRecipes } from '@/mocks/recipe.mock'
-import { routes } from '@/router'
-import { createRouter, createWebHistory } from 'vue-router'
-
-// Testing the real router
-const router = createRouter({
-  history: createWebHistory(),
-  routes: routes,
-})
+import { router } from './mock-router'
 
 const recipes: Recipe[] = getFakeRecipes(5)
 
@@ -19,6 +12,13 @@ describe('RecipeList', () => {
     const wrapper = mount(RecipeList, {
       props: { recipes: recipes },
       global: {
+        mocks: {
+          ['$primevue']: {
+            config: {
+              ripple: true,
+            },
+          },
+        },
         plugins: [router],
         stubs: ['CardRecipe', 'PvTag'],
       },

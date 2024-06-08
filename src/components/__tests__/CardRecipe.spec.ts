@@ -3,14 +3,7 @@ import { mount } from '@vue/test-utils'
 import CardRecipe from '@/components/recipes/CardRecipe.vue'
 import { Recipe } from '@/types/Recipe'
 import { getFakeRecipe } from '@/mocks/recipe.mock'
-import { routes } from '@/router'
-import { createRouter, createWebHistory } from 'vue-router'
-
-// Testing the real router
-const router = createRouter({
-  history: createWebHistory(),
-  routes: routes,
-})
+import { router } from './mock-router'
 
 const recipe: Recipe = getFakeRecipe()
 
