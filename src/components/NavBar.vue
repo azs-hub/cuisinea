@@ -64,10 +64,6 @@
 </template>
 
 <script setup lang="ts">
-/*
-  imports
-*/
-
 import { ref } from 'vue'
 
 /*

@@ -90,5 +90,5 @@ const createRecipe = (id = null): Recipe => ({
 export const getFakeRecipes = (listLength = 5): Recipe[] => {
   return Array.from({ length: listLength }, createRecipe)
 }
-export const getFakeRecipe = (id = null) => createRecipe(id)
-export const getRecipesCategories = () => categories
+export const getFakeRecipe = (id = null): Recipe => createRecipe(id)
+export const getFakeRecipesCategories = () => categories
