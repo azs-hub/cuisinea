@@ -50,7 +50,7 @@ const ingredients: Ingredient[] = [
   },
 ]
 
-const createRecipe = (id = null): Recipe => ({
+const createRecipe = (id: string | undefined): Recipe => ({
   id: id || simpleFaker.string.uuid(),
   image: faker.image.urlLoremFlickr({ category: 'food' }),
   name: faker.lorem.word(),
@@ -90,5 +90,5 @@ const createRecipe = (id = null): Recipe => ({
 export const getFakeRecipes = (listLength = 5): Recipe[] => {
   return Array.from({ length: listLength }, createRecipe)
 }
-export const getFakeRecipe = (id = null): Recipe => createRecipe(id)
+export const getFakeRecipe = (id: string | undefined): Recipe => createRecipe(id)
 export const getFakeRecipesCategories = () => categories
