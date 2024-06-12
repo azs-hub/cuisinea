@@ -22,7 +22,10 @@
                 :key="tag.id"
                 class="list-inline-item"
               >
-                <RouterLink :to="{ name: 'recipesCategory', params: { categoryId: tag.id } }">
+                <RouterLink
+                  :to="{ name: 'recipesCategory', params: { categoryId: tag.id } }"
+                  data-testid="recipe-view-tag-link"
+                >
                   <PvTag
                     :value="tag.label"
                     severity="secondary"

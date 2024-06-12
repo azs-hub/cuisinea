@@ -1,7 +1,6 @@
 import { vi, describe, it, expect, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import RecipeView from '@/views/RecipeView.vue'
-// import { RecipeCategory } from '@/types/Recipe'
 import { router } from './mock-router'
 import { getFakeRecipe } from '@/mocks/recipe.mock'
 
@@ -27,5 +26,22 @@ describe('RecipeView', () => {
   it('Displays Recipe Page', () => {
     const previewContainer = wrapper.find('[data-testid="recipe-view"]')
     expect(previewContainer.exists()).toBeTruthy()
+  })
+
+  it('Redirect to the category recipes page', () => {
+    const push = vi.spyOn(router, 'push')
+    const categoryLink = wrapper.find('[data-testid="recipe-view-tag-link"]')
+
+    expect(categoryLink.exists()).toBeTruthy()
+
+    categoryLink.trigger('click')
+
+    expect(push).toHaveBeenCalledTimes(1)
+    expect(push).toHaveBeenCalledWith({
+      name: 'recipesCategory',
+      params: {
+        categoryId: mockRecipe.tags[0].id,
+      },
+    })
   })
 })
