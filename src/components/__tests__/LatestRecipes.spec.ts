@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import LatestRecipes from '@/components/recipes/LatestRecipes.vue'
 import { router } from './mock-router'
@@ -59,8 +59,7 @@ describe('LatestRecipes', () => {
       expect(wrapper.vm.selectedCategory).toEqual(category)
       expect(title.text()).toBe(`Latest ${category.label} Recipes`)
     })
-
-    it('Displays the panel if no recipes available', () => {
+    it('Displays the panel when no recipes available', () => {
       const wrapper = mount(LatestRecipes, mockGlobalOptions(category, [] as Recipe[]))
       const title = wrapper.find('[data-testid="latest-recipes-no-recipes"]')
 
@@ -69,6 +68,29 @@ describe('LatestRecipes', () => {
       expect(title.text()).toBe(
         `Oh No! There are no latest recipes for the category ${category?.label}`
       )
+    })
+    it('Displays the category page button when no recipes available', () => {
+      const wrapper = mount(LatestRecipes, mockGlobalOptions(category, [] as Recipe[]))
+      const btn = wrapper.find('[data-testid="latest-recipes-category-page-btn"]')
+
+      expect(btn.exists()).toBeTruthy()
+      expect(wrapper.vm.selectedCategory).toEqual(category)
+      expect(btn.text()).toBe(`Go checkout all our ${category?.label} recipes.`)
+    })
+    it('Go to category page', async () => {
+      const wrapper = mount(LatestRecipes, mockGlobalOptions(category, [] as Recipe[]))
+      const push = vi.spyOn(router, 'push')
+      const btn = wrapper.find('[data-testid="latest-recipes-category-page-btn"]')
+
+      await btn.trigger('click')
+
+      expect(push).toHaveBeenCalledTimes(1)
+      expect(push).toHaveBeenCalledWith({
+        name: 'recipesCategory',
+        params: {
+          categoryId: category.id,
+        },
+      })
     })
   })
 })

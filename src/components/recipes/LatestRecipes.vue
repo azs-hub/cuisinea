@@ -22,10 +22,10 @@
             name: 'recipesCategory',
             params: { categoryId: selectedCategory?.id },
           }"
-          target="_blank"
-          rel="noopener"
+          class="btn btn-primary"
+          data-testid="latest-recipes-category-page-btn"
         >
-          <PvButton :label="noRecipesAvailableButtonLabel" />
+          {{ noRecipesAvailableButtonLabel }}
         </RouterLink>
       </PvPanel>
     </div>
