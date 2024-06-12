@@ -63,7 +63,7 @@ const createRecipe = (id = null): Recipe => ({
     RecipeLevel.difficult,
   ]),
   cost: faker.number.int({ min: 1, max: 100 }),
-  tags: faker.helpers.arrayElements(categories, { min: 2, max: 4 }),
+  tags: faker.helpers.arrayElements(categories, { min: 1, max: 4 }),
   ingredients: ingredients,
   duration: {
     id: simpleFaker.string.uuid(),

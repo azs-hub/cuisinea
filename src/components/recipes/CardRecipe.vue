@@ -1,7 +1,7 @@
 <template>
   <div
     class="container"
-    data-testid="recipe-card-container"
+    data-testid="recipe-card"
   >
     <article
       v-if="recipe?.id"
@@ -17,7 +17,10 @@
 
       <div class="card-body">
         <h3 class="h3 my-5">
-          <RouterLink :to="{ name: 'recipe', params: { id: recipe.id } }">
+          <RouterLink
+            :to="{ name: 'recipe', params: { id: recipe.id } }"
+            data-testid="recipe-card-title-link"
+          >
             {{ recipe.name }}
           </RouterLink>
         </h3>
@@ -27,7 +30,10 @@
             :key="tag.id"
             class="list-inline-item"
           >
-            <RouterLink :to="{ name: 'recipesCategory', params: { categoryId: tag.id } }">
+            <RouterLink
+              :to="{ name: 'recipesCategory', params: { categoryId: tag.id } }"
+              data-testid="recipe-card-category-link"
+            >
               <PvTag
                 :value="tag.label"
                 severity="secondary"
@@ -39,6 +45,7 @@
         <RouterLink
           :to="{ name: 'recipe', params: { id: recipe.id } }"
           class="btn btn-primary"
+          data-testid="recipe-card-btn-link"
           >Make it</RouterLink
         >
       </div>

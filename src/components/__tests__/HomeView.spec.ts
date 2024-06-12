@@ -1,22 +1,58 @@
-import { describe, it, expect } from 'vitest'
+import { vi, describe, it, expect, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import HomeView from '@/views/HomeView.vue'
-import { Recipe } from '@/types/Recipe'
-import { getFakeRecipes } from '@/mocks/recipe.mock'
 import { router } from './mock-router'
+import { RecipeCategory } from '@/types/Recipe'
+import { getFakeRecipes } from '@/mocks/recipe.mock'
 
-const recipes: Recipe[] = getFakeRecipes(5)
+const mockRecipes = getFakeRecipes(5)
+mockRecipes[0].tags[0].id = 'test'
+mockRecipes[0].tags[0].label = 'Test'
+const category: RecipeCategory = { id: 'test', label: 'Test' }
+
+vi.mock('@/utilities/services/recipe', () => ({
+  getLatestRecipes: () => mockRecipes,
+}))
 
 describe('HomeView', () => {
-  it('Displays the Recipe information', () => {
+  beforeEach(async () => {
+    vi.resetAllMocks()
+  })
+
+  it('Displays the wrapper', () => {
     const wrapper = mount(HomeView, {
-      props: { recipes: recipes },
       global: {
         plugins: [router],
-        stubs: ['HomeView', 'PvButton', 'PvPanel', 'PvTag', 'NavBar'],
+        stubs: ['RecipeList', 'BannerHome', 'PvPanel', 'PvButton', 'LatestRecipes'],
       },
     })
-    const previewContainer = wrapper.find('[data-testid="recipe-list-container"]')
-    expect(previewContainer.exists()).toBeTruthy()
+    const container = wrapper.find('[data-testid="home-view"]')
+    expect(container.exists()).toBeTruthy()
+  })
+
+  it('Displays all recipes when no categry is select', async () => {
+    const wrapper = mount(HomeView, {
+      global: {
+        plugins: [router],
+        stubs: ['RecipeList', 'BannerHome', 'PvPanel', 'PvButton', 'LatestRecipes'],
+      },
+    })
+
+    expect(wrapper.vm.state.selectedCategory).toEqual(undefined)
+    expect(wrapper.vm.sortedRecipes).toHaveLength(mockRecipes.length)
+  })
+
+  it('Displays recipes for specific category', async () => {
+    const wrapper = mount(HomeView, {
+      global: {
+        plugins: [router],
+        stubs: ['RecipeList', 'BannerHome', 'PvPanel', 'PvButton', 'LatestRecipes'],
+      },
+    })
+
+    expect(wrapper.vm.state.selectedCategory).toEqual(undefined)
+    await wrapper.vm.setSelectedCategory(category)
+    expect(wrapper.vm.state.selectedCategory).toEqual(category)
+    expect(wrapper.vm.sortedRecipes).toContainEqual(mockRecipes[0])
   })
 })

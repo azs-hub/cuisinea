@@ -5,7 +5,7 @@
   >
     <div class="container mx-auto">
       <div class="flex flex-col">
-        <h1 class="mb-5">What Would You Like<br />To Eat Today?</h1>
+        <h1 class="home-banner__title">What Would You Like<br />To Eat Today?</h1>
         <ul class="home-banner-categories">
           <li
             v-for="item in getRecipesCategories"
@@ -63,6 +63,10 @@ const setSelectedCategory = (category: RecipeCategory): void => {
 <style scoped lang="scss">
 .home-banner {
   @apply relative py-40;
+
+  &__title {
+    @apply mb-5 text-3xl font-black;
+  }
 
   .container {
     @apply relative;

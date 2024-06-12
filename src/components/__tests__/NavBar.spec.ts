@@ -8,7 +8,7 @@ import { router } from './mock-router'
 const recipes: Recipe[] = getFakeRecipes(5)
 
 describe('NavBar', () => {
-  it('Displays the list of recipe', () => {
+  it('Displays the navbar', () => {
     const wrapper = mount(NavBar, {
       props: { recipes: recipes },
       global: {
