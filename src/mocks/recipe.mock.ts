@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { simpleFaker } from '@faker-js/faker'
 import type { RecipeCategory, Recipe, Ingredient } from '@/types/Recipe'
-
 import { RecipeLevel } from '@/types/Recipe'
 
 const categories: RecipeCategory[] = [
@@ -29,6 +28,18 @@ const categories: RecipeCategory[] = [
     label: 'Chicken',
     id: 'Chicken',
   },
+  {
+    label: 'Mains',
+    id: 'mains',
+  },
+  {
+    label: 'Desserts',
+    id: 'desserts',
+  },
+  {
+    label: 'Starters',
+    id: 'starters',
+  },
 ]
 
 const ingredients: Ingredient[] = [
@@ -50,8 +61,26 @@ const ingredients: Ingredient[] = [
   },
 ]
 
-const createRecipe = (id: string | undefined): Recipe => ({
-  id: id || simpleFaker.string.uuid(),
+const getSpecificCategoryId = (id: string): RecipeCategory => ({
+  label: id,
+  id,
+})
+
+const getTags = (id?: string): RecipeCategory[] => {
+  console.log('getTags: ', id)
+  const tags = faker.helpers.arrayElements(categories, { min: 1, max: 4 })
+  if (id) tags.push(getSpecificCategoryId(id))
+
+  return tags
+}
+
+interface CreateRecipeData {
+  id?: string
+  categoryId?: string
+}
+
+const createRecipe = (data: CreateRecipeData): Recipe => ({
+  id: data?.id || simpleFaker.string.uuid(),
   image: faker.image.urlLoremFlickr({ category: 'food' }),
   name: faker.lorem.word(),
   shortDescription: faker.lorem.sentences(),
@@ -63,7 +92,7 @@ const createRecipe = (id: string | undefined): Recipe => ({
     RecipeLevel.difficult,
   ]),
   cost: faker.number.int({ min: 1, max: 100 }),
-  tags: faker.helpers.arrayElements(categories, { min: 1, max: 4 }),
+  tags: getTags(data?.categoryId), // faker.helpers.arrayElements(categories, { min: 1, max: 4 }),
   ingredients: ingredients,
   duration: {
     id: simpleFaker.string.uuid(),
@@ -90,5 +119,14 @@ const createRecipe = (id: string | undefined): Recipe => ({
 export const getFakeRecipes = (listLength = 5): Recipe[] => {
   return Array.from({ length: listLength }, createRecipe)
 }
-export const getFakeRecipe = (id: string | undefined): Recipe => createRecipe(id)
-export const getFakeRecipesCategories = () => categories
+export const getFakeRecipe = (id?: string): Recipe => createRecipe({ id })
+export const getFakeAllCategoriesRecipes = () => categories
+
+export const getFakeRecipesByCategoryId = (categoryId: string, listLength: number): Recipe[] => {
+  const data: CreateRecipeData = { categoryId }
+  return Array.from({ length: listLength }, () => {
+    return createRecipe(data)
+  })
+}
+export const getCategoryRecipeById = (id: string): RecipeCategory | undefined =>
+  categories.find((c) => c.id == id)

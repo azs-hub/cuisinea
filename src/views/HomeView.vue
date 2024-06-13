@@ -21,7 +21,7 @@ import { Recipe, RecipeCategory } from '@/types/Recipe'
 import { getLatestRecipes } from '@/utilities/services/recipe'
 
 interface HomeView {
-  selectedCategory: RecipeCategory | undefined
+  selectedCategory?: RecipeCategory
   recipes: Recipe[]
 }
 

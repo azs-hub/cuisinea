@@ -2,10 +2,10 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import BannerHome from '@/components/home/BannerHome.vue'
 import { RecipeCategory } from '@/types/Recipe'
-import { getFakeRecipesCategories } from '@/mocks/recipe.mock'
+import { getFakeAllCategoriesRecipes } from '@/mocks/recipe.mock'
 import { router } from './mock-router'
 
-const recipesCategories: RecipeCategory[] = getFakeRecipesCategories()
+const recipesCategories: RecipeCategory[] = getFakeAllCategoriesRecipes()
 const selectedCategory: RecipeCategory = recipesCategories[0]
 
 describe('BannerHome', () => {

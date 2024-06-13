@@ -42,7 +42,7 @@ import { Recipe, RecipeCategory } from '@/types/Recipe'
 */
 const props = defineProps<{
   recipes: Recipe[]
-  selectedCategory: RecipeCategory | undefined
+  selectedCategory?: RecipeCategory
 }>()
 
 /*

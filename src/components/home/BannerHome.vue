@@ -35,10 +35,10 @@ import IconTomato from '@/components/home/IconTomato.vue'
 import IconCabbage from '@/components/home/IconCabbage.vue'
 import IconCarrot from '@/components/home/IconCarrot.vue'
 import IconLine from '@/components/home/IconLine.vue'
-import { getFakeRecipesCategories } from '@/mocks/recipe.mock'
+import { getFakeAllCategoriesRecipes } from '@/mocks/recipe.mock'
 import type { RecipeCategory } from '@/types/Recipe'
 
-const emit = defineEmits(['set-selected-category', 'submit'])
+const emit = defineEmits(['set-selected-category'])
 
 const props = defineProps<{
   selectedCategory?: RecipeCategory
@@ -47,7 +47,7 @@ const props = defineProps<{
 /*
   Computed
 */
-const getRecipesCategories = computed<RecipeCategory[]>(() => getFakeRecipesCategories())
+const getRecipesCategories = computed<RecipeCategory[]>(() => getFakeAllCategoriesRecipes())
 
 /*
   Methods
