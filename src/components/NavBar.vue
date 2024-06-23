@@ -74,7 +74,7 @@ const currentLang = ref('en')
 const items = ref([
   {
     label: 'Latest Recipes',
-    route: '/',
+    path: '/',
   },
   {
     label: 'Recettes par catégories',
@@ -96,7 +96,7 @@ const items = ref([
 ])
 </script>
 
-<style>
+<style scoped lang="scss">
 .p-menubar {
   @apply border-b-2 border-white rounded-none;
 

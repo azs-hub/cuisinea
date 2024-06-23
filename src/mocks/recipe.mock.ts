@@ -67,7 +67,6 @@ const getSpecificCategoryId = (id: string): RecipeCategory => ({
 })
 
 const getTags = (id?: string): RecipeCategory[] => {
-  console.log('getTags: ', id)
   const tags = faker.helpers.arrayElements(categories, { min: 1, max: 4 })
   if (id) tags.push(getSpecificCategoryId(id))
 
@@ -81,7 +80,7 @@ interface CreateRecipeData {
 
 const createRecipe = (data: CreateRecipeData): Recipe => ({
   id: data?.id || simpleFaker.string.uuid(),
-  image: faker.image.urlLoremFlickr({ category: 'food' }),
+  image: faker.image.urlLoremFlickr({ width: 1000, category: 'food' }),
   name: faker.lorem.word(),
   shortDescription: faker.lorem.sentences(),
   note: faker.lorem.sentences(),
@@ -130,3 +129,4 @@ export const getFakeRecipesByCategoryId = (categoryId: string, listLength: numbe
 }
 export const getCategoryRecipeById = (id: string): RecipeCategory | undefined =>
   categories.find((c) => c.id == id)
+export const getFakeTags = (): RecipeCategory[] => getTags()

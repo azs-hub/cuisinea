@@ -16,23 +16,7 @@
               />
             </div>
 
-            <ul class="my-5">
-              <li
-                v-for="tag in recipe.tags"
-                :key="tag.id"
-                class="list-inline-item"
-              >
-                <RouterLink
-                  :to="{ name: 'recipesCategory', params: { categoryId: tag.id } }"
-                  data-testid="recipe-view-tag-link"
-                >
-                  <PvTag
-                    :value="tag.label"
-                    severity="secondary"
-                  ></PvTag>
-                </RouterLink>
-              </li>
-            </ul>
+            <TagsRecipe :tags="recipe.tags" />
             <p class="text-lg">{{ recipe.shortDescription }}</p>
 
             <h3 class="mt-8 mb-6 text-3xl text-red-500">
@@ -95,6 +79,7 @@ import { computed } from 'vue'
 import type { Recipe } from '@/types/Recipe'
 import { getRecipe } from '@/utilities/services/recipe'
 import { useRoute } from 'vue-router'
+import TagsRecipe from '@/components/recipes/TagRecipe.vue'
 
 const route = useRoute()
 /*

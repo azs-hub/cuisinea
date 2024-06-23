@@ -97,25 +97,6 @@ h6,
   border-color: #5a2a36 !important;
 }
 
-.btn-outline-primary {
-  background: transparent;
-  color: #5a2a36;
-  border-color: #5a2a36;
-}
-.btn-outline-primary:active,
-.btn-outline-primary:hover,
-.btn-outline-primary.focus,
-.btn-outline-primary.active {
-  background: #5a2a36 !important;
-  border-color: #5a2a36 !important;
-  color: #fff;
-}
-
-.btn-block {
-  display: block;
-  width: 100%;
-}
-
 img {
   vertical-align: middle;
   border: 0;
@@ -151,35 +132,10 @@ hr {
   box-shadow: 0px 25px 65px rgba(0, 0, 0, 0.05) !important;
 }
 
-.section {
-  padding-top: 100px;
-  padding-bottom: 100px;
-}
-.section-title {
-  position: relative;
-  text-transform: uppercase;
-  margin-bottom: 30px;
-  letter-spacing: 0.06em;
-}
-.section-title::before {
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  content: '';
-  height: 2px;
-  width: 60px;
-  background-color: #5a2a36;
-}
-
 .list-inline-item {
   display: inline-block;
 }
 .list-inline-item:not(:last-child) {
   display: inline-block;
   margin-right: 0.5em;
-}
-
-.section {
-  padding-left: 0;
-  padding-right: 0;
 }

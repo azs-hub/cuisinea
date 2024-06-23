@@ -1,5 +1,5 @@
 <template>
-  <main data-testid="home-view">
+  <div data-testid="home-view">
     <BannerHome
       :selectedCategory="state.selectedCategory"
       @set-selected-category="setSelectedCategory"
@@ -10,7 +10,7 @@
         :selectedCategory="state.selectedCategory"
       />
     </div>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">

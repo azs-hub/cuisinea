@@ -3,9 +3,9 @@
     class="flex justify-center"
     data-testid="latest-recipes"
   >
-    <div class="w-2/3 mb-5">
+    <div class="mb-5">
       <h2
-        class="h2 section-title"
+        class="h2 latest-recipes__title"
         data-testid="latest-recipes-title"
         >{{ latestRecipesLabel }}</h2
       >
@@ -66,4 +66,18 @@ const noRecipesAvailableButtonLabel = computed<string>(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.latest-recipes {
+  &__title {
+    @apply relative uppercase mb-4 tracking-wider text-red-500;
+
+    &::before {
+      @apply absolute left-0 bg-red-500;
+      bottom: -8px;
+      content: '';
+      height: 2px;
+      width: 60px;
+    }
+  }
+}
+</style>

@@ -12,7 +12,7 @@ const mockGlobalOptions = (recipe = {} as Recipe) => {
     props: { recipe },
     global: {
       plugins: [router],
-      stubs: ['PvTag'],
+      stubs: ['TagsRecipe'],
     },
   }
 }
@@ -20,13 +20,13 @@ const mockGlobalOptions = (recipe = {} as Recipe) => {
 describe('CardRecipe', () => {
   it('Displays the Recipe wrapper', () => {
     const wrapper = mount(CardRecipe, mockGlobalOptions(recipe))
-    const previewContainer = wrapper.find('[data-testid="recipe-card"] .card')
+    const previewContainer = wrapper.find('[data-testid="card-recipe"] .card')
     expect(previewContainer.exists()).toBeTruthy()
   })
 
   it('Does not displays the Recipe wrapper', () => {
     const wrapper = mount(CardRecipe, mockGlobalOptions())
-    const previewContainer = wrapper.find('[data-testid="recipe-card"] .card')
+    const previewContainer = wrapper.find('[data-testid="card-recipe"] .card')
     expect(previewContainer.exists()).toBeFalsy()
   })
 
@@ -34,7 +34,7 @@ describe('CardRecipe', () => {
     const wrapper = mount(CardRecipe, mockGlobalOptions(recipe))
     const push = vi.spyOn(router, 'push')
 
-    const recipeLink = wrapper.find('[data-testid="recipe-card-title-link"]')
+    const recipeLink = wrapper.find('[data-testid="card-recipe-title-link"]')
 
     expect(recipeLink.exists()).toBeTruthy()
 
@@ -52,7 +52,7 @@ describe('CardRecipe', () => {
   it('Redirect to the recipe page by the MakeIt Button', () => {
     const wrapper = mount(CardRecipe, mockGlobalOptions(recipe))
     const push = vi.spyOn(router, 'push')
-    const makeit = wrapper.find('[data-testid="recipe-card-btn-link"]')
+    const makeit = wrapper.find('[data-testid="card-recipe-btn-link"]')
 
     expect(makeit.exists()).toBeTruthy()
 
@@ -63,24 +63,6 @@ describe('CardRecipe', () => {
       name: 'recipe',
       params: {
         id: recipe.id,
-      },
-    })
-  })
-
-  it('Redirect to the category recipes page', () => {
-    const wrapper = mount(CardRecipe, mockGlobalOptions(recipe))
-    const push = vi.spyOn(router, 'push')
-    const categoryLink = wrapper.find('[data-testid="recipe-card-category-link"]')
-
-    expect(categoryLink.exists()).toBeTruthy()
-
-    categoryLink.trigger('click')
-
-    expect(push).toHaveBeenCalledTimes(1)
-    expect(push).toHaveBeenCalledWith({
-      name: 'recipesCategory',
-      params: {
-        categoryId: recipe.tags[0].id,
       },
     })
   })
