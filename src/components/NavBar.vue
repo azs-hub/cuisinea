@@ -5,30 +5,27 @@
   >
     <PvMenubar :model="items">
       <template #start>
-        <img
-          src="@/assets/logo.jpg"
-          width="250"
-        />
+        <RouterLink to="/">
+          <img
+            src="@/assets/logo.jpg"
+            width="250"
+          />
+        </RouterLink>
       </template>
 
       <template #item="{ item, hasSubmenu }">
         <RouterLink
-          v-if="item.route"
-          class="flex align-items-center mx-3"
-          :to="item.route"
+          v-if="item.path"
+          class="flex align-items-center mx-5"
+          :to="item.path"
         >
-          <span :class="item.icon" />
-          <span class="ml-2">{{ item.label }}</span>
-          <span
-            v-if="hasSubmenu"
-            class="pi pi-fw pi-angle-down ml-2"
-          ></span>
+          <span :class="item.icon"></span>
+          <span class="ml-2">{{ item.label }} </span>
         </RouterLink>
-        <a
+
+        <span
           v-else
-          v-ripple
-          :href="item.path"
-          :target="item.target"
+          class="flex align-items-center mx-5"
         >
           <span :class="item.icon"></span>
           <span class="ml-2">{{ item.label }} </span>
@@ -36,7 +33,7 @@
             v-if="hasSubmenu"
             class="pi pi-fw pi-angle-down ml-2"
           />
-        </a>
+        </span>
       </template>
 
       <template #end>
@@ -65,7 +62,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-
 /*
   refs
 */
@@ -74,34 +70,34 @@ const currentLang = ref('en')
 const items = ref([
   {
     label: 'Latest Recipes',
-    path: '/',
+    path: { name: 'home' },
   },
   {
     label: 'Recettes par catégories',
     items: [
       {
         label: 'Starters',
-        path: '/recipes/categories/starters',
+        path: { name: 'recipesCategory', params: { categoryId: 'starters' } },
       },
       {
         label: 'Mains',
-        path: '/recipes/categories/mains',
+        path: { name: 'recipesCategory', params: { categoryId: 'mains' } },
       },
       {
         label: 'Desserts',
-        path: '/recipes/categories/desserts',
+        path: { name: 'recipesCategory', params: { categoryId: 'desserts' } },
       },
     ],
   },
 ])
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .p-menubar {
   @apply border-b-2 border-white rounded-none;
 
   .p-menubar-root-list > .p-menuitem > .p-menuitem-content {
-    @apply rounded-none;
+    @apply rounded-none p-2 mr-2 mb-0;
   }
 
   .p-menubar-root-list
@@ -110,12 +106,16 @@ const items = ref([
     @apply border-b-0 border-gray-600 bg-white;
   }
 
-  .p-menuitem {
-    @apply p-2;
-  }
-
   .p-submenu-list {
     @apply mt-2 rounded-none;
+  }
+
+  .p-menuitem.p-highlight > .p-menuitem-content {
+    color: inherit;
+    @apply bg-slate-100 text-black;
+  }
+  .p-menuitem > .p-menuitem-content {
+    @apply py-2;
   }
 }
 </style>

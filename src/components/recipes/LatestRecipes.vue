@@ -69,10 +69,10 @@ const noRecipesAvailableButtonLabel = computed<string>(() => {
 <style scoped lang="scss">
 .latest-recipes {
   &__title {
-    @apply relative uppercase mb-4 tracking-wider text-red-500;
+    @apply relative uppercase mb-4 tracking-wider text-red-800;
 
     &::before {
-      @apply absolute left-0 bg-red-500;
+      @apply absolute left-0 bg-red-800;
       bottom: -8px;
       content: '';
       height: 2px;

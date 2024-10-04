@@ -78,11 +78,11 @@ const setSelectedCategory = (category: RecipeCategory): void => {
       @apply inline-block mr-3;
 
       button {
-        @apply py-1 px-4 border-orange-500 border-2 rounded-full;
+        @apply py-1 px-4 border-red-900 border-2 rounded-full;
 
         &:hover,
         &.selected {
-          @apply bg-orange-500 text-white;
+          @apply bg-red-900 text-white;
         }
       }
     }

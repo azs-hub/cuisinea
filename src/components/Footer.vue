@@ -18,8 +18,8 @@
         <div class="columns is-multiline is-align-items-center">
           <div class="column is-5-desktop has-text-centered has-text-left-desktop mb-4">
             <ul class="footer-list mb-0">
-              <li class="list-inline-item"><a href="privacy-policy.html">Privacy Policy</a></li>
-              <li class="list-inline-item"><a href="terms-conditions.html">Terms Conditions</a></li>
+              <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+              <li class="list-inline-item"><a href="#">Terms Conditions</a></li>
             </ul>
           </div>
           <div class="column is-2-desktop has-text-centered mb-4">

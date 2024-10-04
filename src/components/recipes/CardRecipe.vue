@@ -48,7 +48,7 @@ defineProps<{
 <style scoped lang="scss">
 .card-recipe {
   &__title {
-    @apply capitalize text-red-500 my-5 text-3xl;
+    @apply capitalize text-red-700 my-5 text-3xl;
   }
   &__description {
     @apply text-xl mb-5;

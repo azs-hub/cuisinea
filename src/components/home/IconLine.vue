@@ -17,7 +17,6 @@
 .banner-line {
   @apply absolute left-0 stroke-red-900;
   bottom: -60px;
-  /* width: 100%; */
-  /* stroke: #b71d25; */
+  width: 100%;
 }
 </style>
