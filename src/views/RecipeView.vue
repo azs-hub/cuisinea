@@ -62,7 +62,9 @@
                 <template #title>{{ ingredient.name }}</template>
                 <template #subtitle
                   >{{ ingredient.quantity }}
-                  <span v-if="ingredient.unit != 'unit'">{{ ingredient.unit }}</span></template
+                  <span v-if="isMeasurementUnit(ingredient.unit)">{{
+                    ingredient.unit
+                  }}</span></template
                 >
               </PvCard>
             </div>
@@ -95,6 +97,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Recipe } from '@/types/Recipe'
+import { IngredientUnit } from '@/types/Recipe'
 import { getRecipe } from '@/utilities/services/recipe'
 import { useRoute } from 'vue-router'
 import TagsRecipe from '@/components/recipes/TagRecipe.vue'
@@ -107,8 +110,12 @@ const recipe = computed<Recipe>(() => {
   const id = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
   return getRecipe(id)
 })
-
-console.log(recipe)
+/*
+  Methods
+*/
+const isMeasurementUnit = (unit: IngredientUnit): Boolean => {
+  return unit != IngredientUnit.unit
+}
 </script>
 
 <style lang="scss">
