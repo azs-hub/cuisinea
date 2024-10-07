@@ -1,11 +1,11 @@
 <template>
   <div
-    class="flex justify-center"
+    class="latest-recipes"
     data-testid="latest-recipes"
   >
     <div class="mb-5">
       <h2
-        class="h2 latest-recipes__title"
+        class="latest-recipes__title"
         data-testid="latest-recipes-title"
         >{{ latestRecipesLabel }}</h2
       >
@@ -68,8 +68,10 @@ const noRecipesAvailableButtonLabel = computed<string>(() => {
 
 <style scoped lang="scss">
 .latest-recipes {
+  @apply flex justify-center;
+
   &__title {
-    @apply relative uppercase mb-4 tracking-wider text-red-800;
+    @apply relative uppercase mb-9 tracking-wider text-red-800 text-2xl font-semibold;
 
     &::before {
       @apply absolute left-0 bg-red-800;

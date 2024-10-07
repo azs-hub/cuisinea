@@ -9,13 +9,15 @@
         <ul class="home-banner-categories">
           <li
             v-for="item in getRecipesCategories"
-            :key="item.id"
+            :key="item"
             class="home-banner-categories__item"
           >
             <PvButton
               :label="item.label"
               @click="setSelectedCategory(item)"
               :class="{ selected: isCategorySelected(item) }"
+              class="color"
+              outlined
             />
           </li>
         </ul>
@@ -82,7 +84,7 @@ const setSelectedCategory = (category: RecipeCategory): void => {
 
         &:hover,
         &.selected {
-          @apply bg-red-900 text-white;
+          @apply bg-red-900 text-white border-red-900 border-2;
         }
       }
     }

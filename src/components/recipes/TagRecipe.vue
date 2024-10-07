@@ -31,7 +31,7 @@ defineProps<{
 
 <style scoped lang="scss">
 .recipe-tags {
-  @apply capitalize my-6 pb-3 border-b-2;
+  @apply capitalize my-6 pb-3;
   &__tag {
     @apply inline-block mr-2;
   }

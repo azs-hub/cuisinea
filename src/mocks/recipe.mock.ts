@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { simpleFaker } from '@faker-js/faker'
 import type { RecipeCategory, Recipe, Ingredient } from '@/types/Recipe'
-import { RecipeLevel } from '@/types/Recipe'
+import { RecipeLevel, IngredientUnit } from '@/types/Recipe'
 
 const categories: RecipeCategory[] = [
   {
@@ -42,24 +42,17 @@ const categories: RecipeCategory[] = [
   },
 ]
 
-const ingredients: Ingredient[] = [
-  {
-    id: simpleFaker.string.uuid(),
-    name: 'sel ou quelques gouttes de jus de citron',
-  },
-  {
-    id: simpleFaker.string.uuid(),
-    name: 'oeuf par personne (ou + si vous êtes gourmand ou pour en faire un plat',
-  },
-  {
-    id: simpleFaker.string.uuid(),
-    name: 'pain de campagne pour réaliser des mouillettes',
-  },
-  {
-    id: simpleFaker.string.uuid(),
-    name: 'beurre demi-sel',
-  },
-]
+const getIngredient = (): Ingredient => ({
+  id: simpleFaker.string.uuid(),
+  name: faker.food.ingredient(),
+  quantity: faker.number.int({ min: 1, max: 100 }),
+  unit: faker.helpers.arrayElement([
+    IngredientUnit.liter,
+    IngredientUnit.grams,
+    IngredientUnit.unit,
+  ]),
+  image: faker.image.urlLoremFlickr({ width: 400, height: 400, category: 'vegetable' }),
+})
 
 const getSpecificCategoryId = (id: string): RecipeCategory => ({
   label: id,
@@ -80,9 +73,9 @@ interface CreateRecipeData {
 
 const createRecipe = (data: CreateRecipeData): Recipe => ({
   id: data?.id || simpleFaker.string.uuid(),
-  image: faker.image.urlLoremFlickr({ width: 1000, category: 'food' }),
-  name: faker.lorem.word(),
-  shortDescription: faker.lorem.sentences(),
+  image: faker.image.urlLoremFlickr({ width: 1000, height: 400, category: 'dishes' }),
+  name: faker.food.dish(),
+  shortDescription: faker.food.description(),
   note: faker.lorem.sentences(),
   serving: faker.number.int({ min: 1, max: 100 }),
   level: faker.helpers.arrayElement([
@@ -91,8 +84,8 @@ const createRecipe = (data: CreateRecipeData): Recipe => ({
     RecipeLevel.difficult,
   ]),
   cost: faker.number.int({ min: 1, max: 100 }),
-  tags: getTags(data?.categoryId), // faker.helpers.arrayElements(categories, { min: 1, max: 4 }),
-  ingredients: ingredients,
+  tags: getTags(data?.categoryId),
+  ingredients: faker.helpers.multiple(getIngredient, { count: 5 }), //faker.helpers.multiple(() => faker.food.ingredient(), { count: 3 }),
   duration: {
     id: simpleFaker.string.uuid(),
     prepTimeMin: faker.number.int({ min: 10, max: 100 }),

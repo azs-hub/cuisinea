@@ -21,6 +21,9 @@ export interface RecipeCategory {
 export interface Ingredient {
   id: string
   name: string
+  image: string
+  quantity: number
+  unit: IngredientUnit
 }
 
 export interface RecipeDuration {
@@ -41,4 +44,9 @@ export enum RecipeLevel {
   easy = 'easy',
   intermediary = 'intermediary',
   difficult = 'difficult',
+}
+export enum IngredientUnit {
+  liter = 'l',
+  grams = 'g',
+  unit = 'unit',
 }

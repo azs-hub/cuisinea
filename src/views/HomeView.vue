@@ -4,7 +4,7 @@
       :selectedCategory="state.selectedCategory"
       @set-selected-category="setSelectedCategory"
     />
-    <div class="container mx-auto mt-10 w-3/5">
+    <div class="container mx-auto mt-10 w-2/4">
       <LatestRecipes
         :recipes="sortedRecipes"
         :selectedCategory="state.selectedCategory"
@@ -38,7 +38,7 @@ const state: HomeView = reactive({
 */
 onBeforeMount(() => {
   // shall get recipes with api
-  state.recipes = getLatestRecipes(5)
+  state.recipes = getLatestRecipes(2)
 })
 
 /*

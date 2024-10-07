@@ -38,18 +38,13 @@
 
       <template #end>
         <div class="flex items-center gap-2">
-          <PvDropdown
-            v-model="currentLang"
-            :options="languagesList"
-            placeholder="EN"
-            class="md:w-[6rem]"
-          >
-          </PvDropdown>
-          <PvInputText
-            placeholder="Search"
-            type="text"
-            class="w-2/3 text-orange-600"
-          />
+          <router-link to="/">
+            <PvButton
+              label="Login"
+              rounded
+            />
+          </router-link>
+
           <PvAvatar
             image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
             shape="circle"
@@ -65,8 +60,8 @@ import { ref } from 'vue'
 /*
   refs
 */
-const languagesList = ref(['fr', 'en'])
-const currentLang = ref('en')
+// const languagesList = ref(['fr', 'en'])
+// const currentLang = ref('en')
 const items = ref([
   {
     label: 'Latest Recipes',
@@ -94,27 +89,7 @@ const items = ref([
 
 <style lang="scss">
 .p-menubar {
-  @apply border-b-2 border-white rounded-none;
-
-  .p-menubar-root-list > .p-menuitem > .p-menuitem-content {
-    @apply rounded-none p-2 mr-2 mb-0;
-  }
-
-  .p-menubar-root-list
-    > .p-menuitem:not(.p-highlight):not(.p-disabled)
-    > .p-menuitem-content:hover {
-    @apply border-b-0 border-gray-600 bg-white;
-  }
-
-  .p-submenu-list {
-    @apply mt-2 rounded-none;
-  }
-
-  .p-menuitem.p-highlight > .p-menuitem-content {
-    color: inherit;
-    @apply bg-slate-100 text-black;
-  }
-  .p-menuitem > .p-menuitem-content {
+  &-item-content {
     @apply py-2;
   }
 }
