@@ -9,7 +9,7 @@
         <ul class="home-banner-categories">
           <li
             v-for="item in getRecipesCategories"
-            :key="item"
+            :key="item.id"
             class="home-banner-categories__item"
           >
             <PvButton

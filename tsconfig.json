@@ -14,15 +14,24 @@
     "jsx": "preserve",
     "importHelpers": true,
     "lib": ["ESNext", "dom"],
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@src": ["src"],
       "@/*": ["./src/*"]
     },
     "allowJs": true,
-    "noEmit": true
+    "noEmit": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["./src/**/*", "./src/**/*.ts", "./src/**/*.tsx", "./src/**/*.d.ts", "./src/**/*.vue"],
+  "include": [
+    "./src/**/*",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/**/*.d.ts",
+    "./src/**/*.vue",
+    "./src/**/*.js"
+  ],
   "exclude": ["node_modules"]
   // "references": [
   //   {
