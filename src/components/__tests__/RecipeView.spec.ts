@@ -3,11 +3,10 @@ import { mount } from '@vue/test-utils'
 import RecipeView from '@/views/RecipeView.vue'
 import { router } from './mock-router'
 import { getFakeRecipe } from '@/mocks/recipe.mock'
-
-const mockRecipe = getFakeRecipe('id')
+import * as apiRecipeService from '@/utilities/services/recipe'
 
 vi.mock('@/utilities/services/recipe', () => ({
-  getRecipe: () => mockRecipe,
+  getRecipe: () => getFakeRecipe('uuid'),
 }))
 
 describe('RecipeView', () => {
@@ -18,7 +17,7 @@ describe('RecipeView', () => {
     wrapper = mount(RecipeView, {
       global: {
         plugins: [router],
-        stubs: ['PvChip', 'PvButton', 'TagsRecipe'],
+        stubs: ['PvChip', 'PvButton', 'TagsRecipe', 'PvCard', 'SkeletonRecipeView', 'PvTag'],
       },
     })
   })
@@ -28,20 +27,60 @@ describe('RecipeView', () => {
     expect(previewContainer.exists()).toBeTruthy()
   })
 
-  // it('Redirect to the category recipes page', () => {
-  //   const push = vi.spyOn(router, 'push')
-  //   const categoryLink = wrapper.find('[data-testid="recipe-view-tag-link"]')
+  it('Displays the recipe data when data is fetched', () => {
+    const recipeCard = wrapper.find('[data-testid="recipe-view-card"]')
+    const skeleton = wrapper.find('[data-testid="recipe-view-skeleton"]')
 
-  //   expect(categoryLink.exists()).toBeTruthy()
+    expect(recipeCard.exists()).toBeTruthy()
+    expect(skeleton.exists()).toBeFalsy()
+  })
 
-  //   categoryLink.trigger('click')
+  it('Displays Ingredient Unit', () => {
+    const ingredientUnit = wrapper.vm.isMeasurementUnit('unit')
+    expect(ingredientUnit).toBeFalsy()
+  })
 
-  //   expect(push).toHaveBeenCalledTimes(1)
-  //   expect(push).toHaveBeenCalledWith({
-  //     name: 'recipesCategory',
-  //     params: {
-  //       categoryId: mockRecipe.tags[0].id,
+  it('Displays the skeleton while data is loading', () => {
+    const wrapper = mount(RecipeView, {
+      global: {
+        plugins: [router],
+        stubs: ['PvChip', 'PvButton', 'TagsRecipe', 'PvCard', 'SkeletonRecipeView', 'PvTag'],
+      },
+    })
+    const recipeCard = wrapper.find('[data-testid="recipe-view-card"]')
+    const skeleton = wrapper.find('[data-testid="recipe-view-skeleton"]')
+
+    expect(recipeCard.exists()).toBeFalsy()
+    expect(skeleton.exists()).toBeTruthy()
+  })
+})
+
+describe('RecipeView - BeforeMount behavior', () => {
+  it('Fetch Recipe data from service', () => {
+    const fetchFromApiSpy = vi
+      .spyOn(apiRecipeService, 'getRecipe')
+      .mockResolvedValue(getFakeRecipe('uuid'))
+
+    mount(RecipeView, {
+      global: {
+        plugins: [router],
+        stubs: ['PvChip', 'PvButton', 'TagsRecipe', 'PvCard', 'SkeletonRecipeView', 'PvTag'],
+      },
+    })
+    expect(fetchFromApiSpy).toHaveBeenCalled()
+  })
+
+  // it('Displays the skeleton while data is loading', () => {
+  //   const wrapper = mount(RecipeView, {
+  //     global: {
+  //       plugins: [router],
+  //       stubs: ['PvChip', 'PvButton', 'TagsRecipe', 'PvCard', 'SkeletonRecipeView', 'PvTag'],
   //     },
   //   })
+  //   const recipeCard = wrapper.find('[data-testid="recipe-view-card"]')
+  //   const skeleton = wrapper.find('[data-testid="recipe-view-skeleton"]')
+
+  //   expect(recipeCard.exists()).toBeFalsy()
+  //   expect(skeleton.exists()).toBeTruthy()
   // })
 })

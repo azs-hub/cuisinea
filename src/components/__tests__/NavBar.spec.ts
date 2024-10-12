@@ -13,7 +13,7 @@ describe('NavBar', () => {
       props: { recipes: recipes },
       global: {
         plugins: [router],
-        stubs: ['PvMenubar', 'PvDropdown', 'PvInputText', 'PvAvatar'],
+        stubs: ['PvMenubar', 'PvDropdown', 'PvInputText', 'PvAvatar', 'PvButton'],
         directives: {
           ripple() {
             /* stub */
