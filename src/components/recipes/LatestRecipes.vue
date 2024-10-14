@@ -11,7 +11,7 @@
       >
       <RecipeList
         v-if="isRecipesAvailable"
-        :recipes="recipes"
+        :recipes="recipesStore.getLatestRecipes"
       />
       <PvPanel v-else>
         <p data-testid="latest-recipes-no-recipes">{{ noRecipesAvailableLabel }}</p>
@@ -33,36 +33,41 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { onBeforeMount, computed } from 'vue'
 import RecipeList from '@/components/recipes/RecipeList.vue'
-import { Recipe, RecipeCategory } from '@/types/Recipe'
+import { useRecipesStore } from '@/stores/recipes'
 
 /*
-  Props
+  Store
 */
-const props = defineProps<{
-  recipes: Recipe[]
-  selectedCategory?: RecipeCategory
-}>()
+const recipesStore = useRecipesStore()
 
 /*
   Computed
 */
 const isRecipesAvailable = computed<boolean>(() => {
-  return !!props.recipes.length
+  return !!recipesStore.getLatestRecipes
 })
 const latestRecipesLabel = computed<string>(() => {
-  return !props.selectedCategory
+  return !recipesStore.getSelectedCategory
     ? 'Latest Recipes'
-    : `Latest ${props.selectedCategory?.label} Recipes`
+    : `Latest ${recipesStore.getSelectedCategory?.label} Recipes`
 })
 const noRecipesAvailableLabel = computed<string>(() => {
-  return props.selectedCategory
-    ? `Oh No! There are no latest recipes for the category ${props.selectedCategory?.label}`
+  return recipesStore.getSelectedCategory
+    ? `Oh No! There are no latest recipes for the category ${recipesStore.getSelectedCategory?.label}`
     : 'Oh No! There are no latest recipes'
 })
 const noRecipesAvailableButtonLabel = computed<string>(() => {
-  return `Go checkout all our ${props.selectedCategory?.label} recipes.`
+  return `Go checkout all our ${recipesStore.getSelectedCategory?.label} recipes.`
+})
+
+/*
+  Hooks
+*/
+onBeforeMount(async () => {
+  // shall get recipes with api
+  await recipesStore.fetchLatestRecipes(2)
 })
 </script>
 

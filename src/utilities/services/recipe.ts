@@ -7,7 +7,6 @@ import {
 import type { Recipe, RecipeCategory } from '@/types/Recipe'
 
 export const getLatestRecipes = async (listLength = 5): Promise<Recipe[]> => {
-  console.log('hello', listLength)
   return await getFakeRecipes(listLength)
 }
 
