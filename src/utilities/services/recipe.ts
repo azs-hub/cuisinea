@@ -6,7 +6,10 @@ import {
 } from '@/mocks/recipe.mock'
 import type { Recipe, RecipeCategory } from '@/types/Recipe'
 
-export const getLatestRecipes = (listLength = 5): Recipe[] => getFakeRecipes(listLength)
+export const getLatestRecipes = async (listLength = 5): Promise<Recipe[]> => {
+  console.log('hello', listLength)
+  return await getFakeRecipes(listLength)
+}
 
 export const getRecipesByCategoryId = (categoryId: string): Recipe[] =>
   getFakeRecipesByCategoryId(categoryId, 5)
