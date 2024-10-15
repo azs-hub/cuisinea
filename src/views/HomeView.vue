@@ -10,12 +10,6 @@
 <script setup lang="ts">
 import BannerHome from '@/components/home/BannerHome.vue'
 import LatestRecipes from '@/components/recipes/LatestRecipes.vue'
-import { useRecipesStore } from '@/stores/recipes'
-
-/*
-  Store
-*/
-const recipesStore = useRecipesStore()
 </script>
 
 <style scoped></style>

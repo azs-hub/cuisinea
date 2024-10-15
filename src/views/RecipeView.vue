@@ -88,6 +88,10 @@
 
             <p class="text-center">{{ recipe?.note }}</p>
           </div>
+
+          <div class="container mx-auto mt-10">
+            <LatestRecipes />
+          </div>
         </div>
         <div
           class="w-2/3 mb-5"
@@ -110,7 +114,7 @@ import { getParamValue } from '@/utilities/helpers/stringUtils'
 import { useRoute } from 'vue-router'
 import TagsRecipe from '@/components/recipes/TagRecipe.vue'
 import SkeletonRecipeView from '@/components/recipes/SkeletonRecipeView.vue'
-
+import LatestRecipes from '@/components/recipes/LatestRecipes.vue'
 const route = useRoute()
 
 const loading: Ref<Boolean> = ref(true)
