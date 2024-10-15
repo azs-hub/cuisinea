@@ -1,9 +1,6 @@
 <template>
   <div data-testid="home-view">
-    <BannerHome
-      :selectedCategory="recipesStore.selectedCategory"
-      @set-selected-category="recipesStore.setSelectedCategory"
-    />
+    <BannerHome />
     <div class="container mx-auto mt-10 w-2/4">
       <LatestRecipes />
     </div>

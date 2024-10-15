@@ -20,20 +20,25 @@ export const useRecipesStore = defineStore({
     async fetchLatestRecipes(listLength: number = 5): Promise<void> {
       this.latestRecipes = await getLatestRecipeService(listLength)
     },
-    setSelectedCategory: (state: State, category: RecipeCategory): void => {
-      const isCategoryExist = state.selectedCategory?.id === category.id
-      state.selectedCategory = isCategoryExist ? ({} as RecipeCategory) : category
+    setSelectedCategory(category: RecipeCategory): void {
+      const isCategoryExist = this.selectedCategory?.id === category.id
+      this.selectedCategory = isCategoryExist ? ({} as RecipeCategory) : category
     },
   },
   getters: {
-    sortedRecipesByCategory: (state: State): Recipe[] => {
-      if (!state.selectedCategory?.id) return state.recipeList
+    getLatestRecipesByCategory: (state: State): Recipe[] => {
+      console.log('getLatestRecipesByCategory')
+      if (!state.selectedCategory?.id) return state.latestRecipes
 
-      return state.recipeList?.filter((recipe) =>
+      return state.latestRecipes?.filter((recipe) =>
         recipe.tags.some((tag) => tag.id === state.selectedCategory?.id)
       )
     },
     getSelectedCategory: (state: State): RecipeCategory => state.selectedCategory,
+    isCategorySelected: (state: State): Boolean => !!state.selectedCategory?.id,
     getLatestRecipes: (state: State): Recipe[] => state.latestRecipes,
+    isLatestRecipesAvailable(): Boolean {
+      return this.getLatestRecipesByCategory.length > 0
+    },
   },
 })

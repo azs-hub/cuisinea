@@ -39,12 +39,12 @@ import IconCarrot from '@/components/home/IconCarrot.vue'
 import IconLine from '@/components/home/IconLine.vue'
 import { getFakeAllCategoriesRecipes } from '@/mocks/recipe.mock'
 import type { RecipeCategory } from '@/types/Recipe'
+import { useRecipesStore } from '@/stores/recipes'
 
-const emit = defineEmits(['set-selected-category'])
-
-const props = defineProps<{
-  selectedCategory?: RecipeCategory
-}>()
+/*
+  Store
+*/
+const recipesStore = useRecipesStore()
 
 /*
   Computed
@@ -55,10 +55,10 @@ const getRecipesCategories = computed<RecipeCategory[]>(() => getFakeAllCategori
   Methods
 */
 const isCategorySelected = (category: RecipeCategory): boolean => {
-  return props.selectedCategory?.id === category.id
+  return recipesStore.getSelectedCategory?.id === category.id
 }
 const setSelectedCategory = (category: RecipeCategory): void => {
-  emit('set-selected-category', category)
+  recipesStore.setSelectedCategory(category)
 }
 </script>
 
