@@ -45,8 +45,15 @@ export enum RecipeLevel {
   intermediary = 'intermediary',
   difficult = 'difficult',
 }
+
 export enum IngredientUnit {
   liter = 'l',
   grams = 'g',
   unit = 'unit',
+}
+
+export enum Layout {
+  grid = 'grid',
+  list = 'list',
+  carousel = 'carousel',
 }

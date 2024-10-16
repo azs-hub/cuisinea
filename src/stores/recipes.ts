@@ -27,7 +27,6 @@ export const useRecipesStore = defineStore({
   },
   getters: {
     getLatestRecipesByCategory: (state: State): Recipe[] => {
-      console.log('getLatestRecipesByCategory')
       if (!state.selectedCategory?.id) return state.latestRecipes
 
       return state.latestRecipes?.filter((recipe) =>

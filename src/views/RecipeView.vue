@@ -87,10 +87,9 @@
             </h3>
 
             <p class="text-center">{{ recipe?.note }}</p>
-          </div>
+            <hr class="my-10" />
 
-          <div class="container mx-auto mt-10">
-            <LatestRecipes />
+            <LatestRecipes :layout="Layout.carousel" />
           </div>
         </div>
         <div
@@ -108,6 +107,7 @@
 <script setup lang="ts">
 import { ref, Ref, onBeforeMount, computed, defineExpose } from 'vue'
 import type { Recipe } from '@/types/Recipe'
+import { Layout } from '@/types/Recipe'
 import { IngredientUnit } from '@/types/Recipe'
 import { getRecipe } from '@/utilities/services/recipe'
 import { getParamValue } from '@/utilities/helpers/stringUtils'

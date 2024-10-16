@@ -22,6 +22,7 @@ import Chip from 'primevue/chip'
 import Panel from 'primevue/panel'
 import Card from 'primevue/card'
 import Skeleton from 'primevue/skeleton'
+import Carousel from 'primevue/carousel'
 
 const app = createApp(App)
 
@@ -64,6 +65,7 @@ app.component('PvChip', Chip)
 app.component('PvPanel', Panel)
 app.component('PvCard', Card)
 app.component('PvSkeleton', Skeleton)
+app.component('PvCarousel', Carousel)
 
 app.directive('ripple', Ripple)
 

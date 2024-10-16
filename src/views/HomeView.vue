@@ -2,7 +2,9 @@
   <div data-testid="home-view">
     <BannerHome />
     <div class="container mx-auto mt-10 w-2/4">
-      <LatestRecipes />
+      <div class="flex justify-center">
+        <LatestRecipes />
+      </div>
     </div>
   </div>
 </template>
