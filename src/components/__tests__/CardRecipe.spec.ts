@@ -12,7 +12,7 @@ const mockGlobalOptions = (recipe = {} as Recipe) => {
     props: { recipe },
     global: {
       plugins: [router],
-      stubs: ['TagsRecipe'],
+      stubs: ['TagsRecipe', 'PvButton', 'PvTag'],
     },
   }
 }

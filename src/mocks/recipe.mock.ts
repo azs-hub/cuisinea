@@ -120,6 +120,6 @@ export const getFakeRecipesByCategoryId = (categoryId: string, listLength: numbe
     return createRecipe(data)
   })
 }
-export const getCategoryRecipeById = (id: string): RecipeCategory | undefined =>
-  categories.find((c) => c.id == id)
+export const getCategoryById = (idCategory: string): RecipeCategory | undefined =>
+  categories.find((c) => c.id == idCategory)
 export const getFakeTags = (): RecipeCategory[] => getTags()

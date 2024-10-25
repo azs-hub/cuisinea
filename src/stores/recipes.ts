@@ -6,11 +6,13 @@ interface State {
   recipeList: Recipe[]
   latestRecipes: Recipe[]
   selectedCategory: RecipeCategory
+  categories: RecipeCategory[]
 }
 const initialState: State = {
-  recipeList: [],
+  recipeList: [] as Recipe[],
   latestRecipes: [] as Recipe[],
   selectedCategory: {} as RecipeCategory,
+  categories: [] as RecipeCategory[],
 }
 
 export const useRecipesStore = defineStore({
@@ -18,6 +20,12 @@ export const useRecipesStore = defineStore({
   state: () => initialState,
   actions: {
     async fetchLatestRecipes(listLength: number = 5): Promise<void> {
+      console.log('start')
+      this.latestRecipes = await getLatestRecipeService(listLength)
+      console.log(this.latestRecipes.length)
+      console.log('end')
+    },
+    async fetchAllCategories(listLength: number = 5): Promise<void> {
       this.latestRecipes = await getLatestRecipeService(listLength)
     },
     setSelectedCategory(category: RecipeCategory): void {

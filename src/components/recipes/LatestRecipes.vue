@@ -12,6 +12,7 @@
       >
       <div
         class="latest-recipes__title"
+        data-testid="latest-recipes-title-category"
         v-else
       >
         <h2>Latest recipes for</h2>
@@ -21,8 +22,10 @@
           removable
       /></div>
 
-      <div v-if="recipesStore.isLatestRecipesAvailable">
-        <!-- <RecipeList :recipes="recipesStore.getLatestRecipesByCategory" /> -->
+      <div
+        v-if="recipesStore.isLatestRecipesAvailable"
+        data-testid="latest-recipes-list"
+      >
         <component
           :is="getLayoutComponent"
           v-bind:recipes="recipesStore.getLatestRecipesByCategory"

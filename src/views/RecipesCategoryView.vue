@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Recipe, RecipeCategory } from '@/types/Recipe'
-import { getRecipesByCategoryId, getRecipeCategory } from '@/utilities/services/recipe'
+import { getRecipesByCategoryId, getRecipesByCategory } from '@/utilities/services/recipe'
 import { useRoute } from 'vue-router'
 import RecipesList from '@/components/recipes/RecipeList.vue'
 
@@ -37,7 +37,7 @@ const categoryId: string = route.params.categoryId
   Computed
 */
 
-const currentCategory = computed<RecipeCategory>(() => getRecipeCategory(categoryId))
+const currentCategory = computed<RecipeCategory>(() => getRecipesByCategory(categoryId))
 const recipes = computed<Recipe[]>(() => getRecipesByCategoryId(categoryId))
 const isRecipesAvailable = computed<boolean>(() => !!recipes.value.length)
 const recipesViewTitle = computed<string>(
