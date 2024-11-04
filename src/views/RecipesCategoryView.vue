@@ -26,23 +26,24 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Recipe, RecipeCategory } from '@/types/Recipe'
-import { getRecipesByCategoryId, getRecipesByCategory } from '@/utilities/services/recipe'
+import { getRecipesByCategoryId, getRecipeCategory } from '@/utilities/services/recipe'
 import { useRoute } from 'vue-router'
 import RecipesList from '@/components/recipes/RecipeList.vue'
+import { getParamValue } from '@/utilities/helpers/stringUtils'
 
 const route = useRoute()
-const categoryId: string = route.params.categoryId
+const categoryId: string | string[] = getParamValue(route.params.categoryId)
 
 /*
   Computed
 */
 
-const currentCategory = computed<RecipeCategory>(() => getRecipesByCategory(categoryId))
+const currentCategory = computed<RecipeCategory | undefined>(() => getRecipeCategory(categoryId))
 const recipes = computed<Recipe[]>(() => getRecipesByCategoryId(categoryId))
 const isRecipesAvailable = computed<boolean>(() => !!recipes.value.length)
 const recipesViewTitle = computed<string>(
   () =>
-    `Discover all our <span class='recipes-category__title--underline'>${currentCategory?.value.label}</span> Recipes`
+    `Discover all our <span class='recipes-category__title--underline'>${currentCategory?.value?.label}</span> Recipes`
 )
 const recipesViewSubTitle = computed<string>(() => `${recipes.value.length} Recipes`)
 </script>

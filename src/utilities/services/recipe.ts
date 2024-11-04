@@ -2,7 +2,8 @@ import {
   getFakeRecipes,
   getFakeRecipe,
   getFakeRecipesByCategoryId,
-  getCategoryRecipeById,
+  getCategoryById,
+  getFakeAllCategoriesRecipes,
 } from '@/mocks/recipe.mock'
 import type { Recipe, RecipeCategory } from '@/types/Recipe'
 
@@ -15,5 +16,6 @@ export const getRecipesByCategoryId = (categoryId: string): Recipe[] =>
 
 export const getRecipe = (id: string): Recipe => getFakeRecipe(id)
 
-export const getRecipeCategory = (id: string): RecipeCategory | undefined =>
-  getCategoryRecipeById(id)
+export const getRecipeCategory = (id: string): RecipeCategory | undefined => getCategoryById(id)
+
+export const getAllRecipeCategories = (): RecipeCategory[] => getFakeAllCategoriesRecipes()

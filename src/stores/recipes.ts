@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import { Recipe, RecipeCategory } from '@/types/Recipe'
-import { getLatestRecipes as getLatestRecipeService } from '@/utilities/services/recipe'
+import {
+  getLatestRecipes as getLatestRecipeService,
+  getAllRecipeCategories,
+} from '@/utilities/services/recipe'
 
 interface State {
   recipeList: Recipe[]
@@ -16,17 +19,14 @@ const initialState: State = {
 }
 
 export const useRecipesStore = defineStore({
-  id: 'store',
+  id: 'RecipesStore',
   state: () => initialState,
   actions: {
     async fetchLatestRecipes(listLength: number = 5): Promise<void> {
-      console.log('start')
       this.latestRecipes = await getLatestRecipeService(listLength)
-      console.log(this.latestRecipes.length)
-      console.log('end')
     },
-    async fetchAllCategories(listLength: number = 5): Promise<void> {
-      this.latestRecipes = await getLatestRecipeService(listLength)
+    async fetchAllCategories(): Promise<void> {
+      this.categories = await getAllRecipeCategories()
     },
     setSelectedCategory(category: RecipeCategory): void {
       const isCategoryExist = this.selectedCategory?.id === category.id
@@ -47,5 +47,6 @@ export const useRecipesStore = defineStore({
     isLatestRecipesAvailable(): Boolean {
       return this.getLatestRecipesByCategory.length > 0
     },
+    checkSelectedCategory: (state: State) => (id: string) => state.selectedCategory?.id === id,
   },
 })

@@ -8,14 +8,14 @@
         <h1 class="home-banner__title">What Would You Like<br />To Eat Today?</h1>
         <ul class="home-banner-categories">
           <li
-            v-for="item in getRecipesCategories"
+            v-for="item in recipesStore.categories"
             :key="item.id"
             class="home-banner-categories__item"
           >
             <PvButton
               :label="item.label"
               @click="setSelectedCategory(item)"
-              :class="{ selected: isCategorySelected(item) }"
+              :class="{ selected: recipesStore.checkSelectedCategory(item.id) }"
               class="color"
               outlined
             />
@@ -32,12 +32,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { onBeforeMount } from 'vue'
 import IconTomato from '@/components/home/IconTomato.vue'
 import IconCabbage from '@/components/home/IconCabbage.vue'
 import IconCarrot from '@/components/home/IconCarrot.vue'
 import IconLine from '@/components/home/IconLine.vue'
-import { getFakeAllCategoriesRecipes } from '@/mocks/recipe.mock'
 import type { RecipeCategory } from '@/types/Recipe'
 import { useRecipesStore } from '@/stores/recipes'
 
@@ -47,19 +46,19 @@ import { useRecipesStore } from '@/stores/recipes'
 const recipesStore = useRecipesStore()
 
 /*
-  Computed
-*/
-const getRecipesCategories = computed<RecipeCategory[]>(() => getFakeAllCategoriesRecipes())
-
-/*
   Methods
 */
-const isCategorySelected = (category: RecipeCategory): boolean => {
-  return recipesStore.getSelectedCategory?.id === category.id
-}
 const setSelectedCategory = (category: RecipeCategory): void => {
   recipesStore.setSelectedCategory(category)
 }
+
+/*
+  Hooks
+*/
+// Load categories before the component load
+onBeforeMount(() => {
+  recipesStore.fetchAllCategories()
+})
 </script>
 
 <style scoped lang="scss">
