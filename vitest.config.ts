@@ -16,6 +16,7 @@ export default mergeConfig(
         exclude: ['node_modules/', '*.spec.ts', 'src/js/firebase.ts', 'src/js/firebaseSeeder.ts'], // Exclude tests and other irrelevant files
         all: true, // This includes untested files in coverage report
       },
+      clearMocks: true,
     },
   })
 )

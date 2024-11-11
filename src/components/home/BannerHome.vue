@@ -18,6 +18,7 @@
               :class="{ selected: recipesStore.checkSelectedCategory(item.id) }"
               class="color"
               outlined
+              data-testid="home-banner--category-btn"
             />
           </li>
         </ul>
@@ -32,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from 'vue'
+import { onMounted } from 'vue'
 import IconTomato from '@/components/home/IconTomato.vue'
 import IconCabbage from '@/components/home/IconCabbage.vue'
 import IconCarrot from '@/components/home/IconCarrot.vue'
@@ -56,7 +57,7 @@ const setSelectedCategory = (category: RecipeCategory): void => {
   Hooks
 */
 // Load categories before the component load
-onBeforeMount(() => {
+onMounted(() => {
   recipesStore.fetchAllCategories()
 })
 </script>

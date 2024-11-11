@@ -1,42 +1,74 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import BannerHome from '@/components/home/BannerHome.vue'
 import { RecipeCategory } from '@/types/Recipe'
 import { getFakeAllCategoriesRecipes } from '@/mocks/recipe.mock'
 import { router } from './mock-router'
 import { setActivePinia, createPinia } from 'pinia'
+import { createTestingPinia } from '@pinia/testing'
+import { useRecipesStore } from '@/stores/recipes'
 
 const recipesCategories: RecipeCategory[] = getFakeAllCategoriesRecipes()
+
+vi.mock('@/utilities/services/recipe', () => ({
+  getAllRecipeCategories: () => recipesCategories,
+}))
+
 const selectedCategory: RecipeCategory = recipesCategories[0]
 
+const mockGlobalOptions = () => {
+  return {
+    global: {
+      plugins: [
+        router,
+        createTestingPinia({
+          createSpy: vi.fn,
+          stubActions: false,
+        }),
+      ],
+      renderStubDefaultSlot: true,
+      stubs: ['IconTomato', 'IconCabbage', 'IconCarrot', 'IconLine', 'PvButton'],
+    },
+  }
+}
+
 describe('BannerHome', () => {
-  let wrapper: any
+  let recipesStore: any = null
 
   beforeEach(() => {
+    vi.clearAllMocks()
+    // vi.mocked(getAllRecipeCategories).mockReset()
+
     setActivePinia(createPinia())
-    wrapper = mount(BannerHome, {
-      props: { selectedCategory },
-      global: {
-        plugins: [router],
-        stubs: ['IconTomato', 'IconCabbage', 'IconCarrot', 'IconLine', 'PvButton'],
-      },
-    })
+    recipesStore = useRecipesStore()
   })
 
   it('Displays the Banner', () => {
+    const wrapper = mount(BannerHome, mockGlobalOptions())
     const previewContainer = wrapper.find('[data-testid="home-banner"]')
     expect(previewContainer.exists()).toBeTruthy()
   })
 
-  // it('Emit the Selected Category when click on category button', () => {
-  //   const category = wrapper.findComponent('pv-button-stub')
+  it('Fetch all categories', async () => {
+    mount(BannerHome, mockGlobalOptions())
+    expect(recipesStore.categories).toEqual(recipesCategories)
+  })
 
-  //   expect(category.exists()).toBeTruthy()
+  it('Select and Unselect a Category when click on category button', () => {
+    const wrapper = mount(BannerHome, mockGlobalOptions())
+    const categoryBtn = wrapper.findComponent('pv-button-stub')
 
-  //   category.trigger('click')
+    expect(categoryBtn.exists()).toBeTruthy()
+    expect(recipesStore.isCategorySelected).toBeFalsy()
+    expect(categoryBtn.attributes('label')).toBe(selectedCategory.label)
 
-  //   expect(wrapper.emitted()['set-selected-category']).toHaveLength(1)
-  //   expect(wrapper.emitted()).toHaveProperty('set-selected-category')
-  //   expect(wrapper.emitted()['set-selected-category'][0]).toStrictEqual([selectedCategory])
-  // })
+    categoryBtn.trigger('click')
+
+    expect(recipesStore.isCategorySelected).toBeTruthy()
+    expect(recipesStore.getSelectedCategory).toStrictEqual(selectedCategory)
+
+    categoryBtn.trigger('click')
+    expect(recipesStore.isCategorySelected).toBeFalsy()
+    expect(recipesStore.getSelectedCategory).toStrictEqual({} as RecipeCategory)
+  })
 })
