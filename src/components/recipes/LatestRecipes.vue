@@ -29,6 +29,8 @@
         <component
           :is="getLayoutComponent"
           v-bind:recipes="recipesStore.getLatestRecipesByCategory"
+          :data-ref="layout"
+          data-testid="latest-recipes-list-layout-component"
         >
         </component>
       </div>
@@ -55,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, computed } from 'vue'
+import { onMounted, computed } from 'vue'
 import type { Component } from 'vue'
 import RecipeList from '@/components/recipes/RecipeList.vue'
 import CarouselRecipes from '@/components/recipes/CarouselRecipes.vue'
@@ -75,14 +77,13 @@ const recipesStore = useRecipesStore()
   Computed
 */
 const noRecipesAvailableLabel = computed<string>(() => {
-  return recipesStore.getSelectedCategory
+  return recipesStore.getSelectedCategory?.label
     ? `Oh No! There are no latest recipes for the category ${recipesStore.getSelectedCategory?.label}`
     : 'Oh No! There are no latest recipes'
 })
 const noRecipesAvailableButtonLabel = computed<string>(() => {
   return `Go checkout all our ${recipesStore.getSelectedCategory?.label} recipes.`
 })
-// const getLayout = computed<Layout>(() => props?.layout || Layout.list)
 const getLayoutComponent = computed<Component>(() => {
   switch (props.layout) {
     case Layout.grid:
@@ -99,8 +100,8 @@ const getLayoutComponent = computed<Component>(() => {
 /*
   Hooks
 */
-onBeforeMount(async () => {
-  await recipesStore.fetchLatestRecipes(5)
+onMounted(async () => {
+  await recipesStore.fetchLatestRecipes(0)
 })
 </script>
 
