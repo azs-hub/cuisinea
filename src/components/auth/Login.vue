@@ -41,11 +41,11 @@
             class="flex flex-col gap-1"
           >
             <PvPassword
-              type="password"
               placeholder="Password"
               :feedback="false"
               toggleMask
               fluid
+              :inputProps="{ autocomplete: true }"
             />
             <PvMessage
               v-if="$field?.invalid"
@@ -55,6 +55,14 @@
               >{{ $field.error?.message }}</PvMessage
             >
           </PvFormField>
+
+          <PvMessage
+            v-if="apiError"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ apiError }}</PvMessage
+          >
           <PvButton
             type="submit"
             severity="secondary"
@@ -78,18 +86,33 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { useToast } from 'primevue/usetoast'
 import HeaderTitle from '../shared/HeaderTitle.vue'
-
 import { z } from 'zod'
 import { zodResolver } from '@primevue/forms/resolvers/zod'
+import { useAuthStore } from '@/stores/user'
+import { userLogin } from '@/utilities/services/user'
 
-const toast = useToast()
+/*
+  Store
+*/
+const authStore = useAuthStore()
 
+/*
+  Ref
+*/
+const apiError = ref<string | null>(null)
 const initialValues = reactive({
   username: '',
   password: '',
 })
+
+/*
+  Handle Form Submission
+*/
+interface FormValues {
+  username: string
+  password: string
+}
 
 const resolver = zodResolver(
   z.object({
@@ -110,14 +133,17 @@ const resolver = zodResolver(
   })
 )
 
-const onFormSubmit = ({ valid }) => {
-  console.log('submit', valid)
+const onFormSubmit = async ({ values, valid }: { values: FormValues; valid: boolean }) => {
   if (valid) {
-    toast.add({
-      severity: 'success',
-      summary: 'Form is submitted.',
-      life: 3000,
-    })
+    try {
+      const user = await userLogin(values.username, values.password)
+      authStore.setUser(user)
+      apiError.value = null
+    } catch (error: any) {
+      console.log('error.message')
+      console.log(error.message)
+      apiError.value = error.message || 'An error occurred. Please try again.'
+    }
   }
 }
 
@@ -127,13 +153,4 @@ const forgotPassword = () => {
 }
 </script>
 
-<style scoped lang="scss">
-.recipe {
-  &__title {
-    @apply uppercase text-red-700 mb-5 text-4xl font-semibold text-center tracking-wider;
-  }
-  &__short-description {
-    @apply text-lg font-semibold text-center tracking-wider mb-7;
-  }
-}
-</style>
+<style scoped lang="scss"></style>
