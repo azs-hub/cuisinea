@@ -105,7 +105,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref, onBeforeMount, computed, defineExpose } from 'vue'
+import { ref, Ref, onMounted, computed, defineExpose } from 'vue'
 import type { Recipe } from '@/types/Recipe'
 import { Layout } from '@/types/Recipe'
 import { IngredientUnit } from '@/types/Recipe'
@@ -151,7 +151,7 @@ const isMeasurementUnit = (unit: IngredientUnit): Boolean => {
   Hooks
 */
 // Load the recipe before the component load
-onBeforeMount(() => {
+onMounted(() => {
   fetchRecipe(route.params.id)
 })
 
@@ -160,7 +160,7 @@ defineExpose({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .recipe {
   &__title {
     @apply uppercase text-red-700 mb-5 text-4xl font-semibold text-center tracking-wider;
@@ -188,20 +188,4 @@ defineExpose({
     }
   }
 }
-
-// .p-chip-icon {
-//   @apply text-red-500 bg-slate-100;
-// }
-
-// .card-meta li:not(:last-child) {
-//   @apply border-r border-gray-300 pr-3;
-// }
-
-// .card-meta-tag {
-//   @apply mb-5;
-
-//   li {
-//     @apply text-base;
-//   }
-// }
 </style>

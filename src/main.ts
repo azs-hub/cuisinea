@@ -23,6 +23,13 @@ import Panel from 'primevue/panel'
 import Card from 'primevue/card'
 import Skeleton from 'primevue/skeleton'
 import Carousel from 'primevue/carousel'
+import ToastService from 'primevue/toastservice'
+import Message from 'primevue/message'
+import Password from 'primevue/password'
+import Toast from 'primevue/toast'
+
+import { Form } from '@primevue/forms'
+import { FormField } from '@primevue/forms'
 
 const app = createApp(App)
 
@@ -66,7 +73,15 @@ app.component('PvPanel', Panel)
 app.component('PvCard', Card)
 app.component('PvSkeleton', Skeleton)
 app.component('PvCarousel', Carousel)
+app.component('PvMessage', Message)
+app.component('PvPassword', Password)
+app.component('PvToast', Toast)
+
+app.component('PvForm', Form)
+app.component('PvFormField', FormField)
 
 app.directive('ripple', Ripple)
+
+app.use(ToastService)
 
 app.mount('#app')

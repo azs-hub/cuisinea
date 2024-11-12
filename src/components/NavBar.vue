@@ -38,7 +38,7 @@
 
       <template #end>
         <div class="flex items-center gap-2">
-          <router-link to="/">
+          <router-link to="/user/login">
             <PvButton
               label="Login"
               rounded
@@ -60,8 +60,6 @@ import { ref } from 'vue'
 /*
   refs
 */
-// const languagesList = ref(['fr', 'en'])
-// const currentLang = ref('en')
 const items = ref([
   {
     label: 'Latest Recipes',

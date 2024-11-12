@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import RecipeView from '../views/RecipeView.vue'
 import RecipesCategoryView from '../views/RecipesCategoryView.vue'
+import AuthView from '../views/AuthView.vue'
+import Login from '@/components/auth/Login.vue'
 
 const routes = [
   {
@@ -25,6 +27,28 @@ const routes = [
     path: '/recipe/:id',
     name: 'recipe',
     component: RecipeView,
+  },
+  {
+    path: '/user',
+    name: 'auth',
+    component: AuthView,
+    children: [
+      {
+        path: 'login',
+        name: 'login',
+        component: Login,
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: Login,
+      },
+      {
+        path: 'forgotten-password',
+        name: 'forgotten-password',
+        component: Login,
+      },
+    ],
   },
 ]
 

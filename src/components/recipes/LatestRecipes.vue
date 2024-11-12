@@ -101,7 +101,7 @@ const getLayoutComponent = computed<Component>(() => {
   Hooks
 */
 onMounted(async () => {
-  await recipesStore.fetchLatestRecipes(0)
+  await recipesStore.fetchLatestRecipes(10)
 })
 </script>
 
