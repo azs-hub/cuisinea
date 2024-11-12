@@ -72,11 +72,7 @@
 
         <!-- Forgot Password Link -->
         <div class="forgot-password">
-          <a
-            href="#"
-            @click.prevent="forgotPassword"
-            >Forgot Password?</a
-          >
+          <router-link to="/user/forgotten-password"> Forgot Password? </router-link>
         </div>
       </div>
     </div>
