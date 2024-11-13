@@ -118,6 +118,9 @@ import { z } from 'zod'
 import { zodResolver } from '@primevue/forms/resolvers/zod'
 import { useAuthStore } from '@/stores/user'
 import { userRegister } from '@/utilities/services/user'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 /*
   Store
@@ -180,6 +183,7 @@ const onFormSubmit = async ({ values, valid }: { values: FormValues; valid: bool
       const user = await userRegister(values.username, values.password)
       authStore.setUser(user)
       apiError.value = null
+      router.push('/')
     } catch (error: any) {
       console.log('error.message')
       console.log(error.message)
