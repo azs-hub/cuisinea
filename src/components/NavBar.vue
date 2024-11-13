@@ -3,7 +3,7 @@
     class="navbar"
     data-testid="navbar"
   >
-    <PvMenubar :model="items">
+    <PvMenubar :model="navigationItems">
       <template #start>
         <RouterLink to="/">
           <img
@@ -38,17 +38,36 @@
 
       <template #end>
         <div class="flex items-center gap-2">
-          <router-link to="/user/login">
+          <router-link
+            to="/user/login"
+            v-if="!authStore.isAuthenticated"
+          >
             <PvButton
               label="Login"
               rounded
             />
           </router-link>
-
-          <PvAvatar
-            image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-            shape="circle"
-          />
+          <div v-else>
+            <PvButton
+              type="button"
+              @click="menuToggle"
+              aria-haspopup="true"
+              aria-controls="overlay_menu"
+              variant="text"
+            >
+              <PvAvatar
+                v-if="authStore.isAuthenticated"
+                image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+                shape="circle"
+              />
+            </PvButton>
+            <PvMenu
+              ref="userMenu"
+              id="overlay_menu"
+              :model="userMenuItems"
+              :popup="true"
+            />
+          </div>
         </div>
       </template>
     </PvMenubar>
@@ -57,10 +76,19 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useAuthStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+/*
+  Store
+*/
+const authStore = useAuthStore()
+
 /*
   refs
 */
-const items = ref([
+const navigationItems = ref([
   {
     label: 'Latest Recipes',
     path: { name: 'home' },
@@ -83,6 +111,28 @@ const items = ref([
     ],
   },
 ])
+const userMenu = ref()
+const userMenuItems = ref([
+  {
+    label: 'Account',
+    items: [
+      {
+        label: 'Logout',
+        command: () => {
+          authStore.logout()
+          router.push('/')
+        },
+      },
+    ],
+  },
+])
+
+/*
+  Methods
+*/
+const menuToggle = (event) => {
+  userMenu.value.toggle(event)
+}
 </script>
 
 <style lang="scss">

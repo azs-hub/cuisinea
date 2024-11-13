@@ -13,6 +13,7 @@ import router from './router'
 
 import Ripple from 'primevue/ripple'
 import Button from 'primevue/button'
+import Menu from 'primevue/menu'
 import Menubar from 'primevue/menubar'
 import Dropdown from 'primevue/dropdown'
 import InputText from 'primevue/inputtext'
@@ -64,6 +65,7 @@ app.use(PrimeVue, {
 
 app.component('PvButton', Button)
 app.component('PvMenubar', Menubar)
+app.component('PvMenu', Menu)
 app.component('PvDropdown', Dropdown)
 app.component('PvInputText', InputText)
 app.component('PvAvatar', Avatar)

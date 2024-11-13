@@ -152,11 +152,6 @@ const onFormSubmit = async ({ values, valid }: { values: FormValues; valid: bool
     }
   }
 }
-
-const forgotPassword = () => {
-  alert('Redirecting to password reset page...')
-  // Add "Forgot Password?" link navigation logic
-}
 </script>
 
 <style scoped lang="scss">
