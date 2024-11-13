@@ -4,6 +4,7 @@ import RecipeView from '../views/RecipeView.vue'
 import RecipesCategoryView from '../views/RecipesCategoryView.vue'
 import AuthView from '../views/AuthView.vue'
 import Login from '@/components/auth/Login.vue'
+import Register from '@/components/auth/Register.vue'
 
 const routes = [
   {
@@ -41,7 +42,7 @@ const routes = [
       {
         path: 'register',
         name: 'register',
-        component: Login,
+        component: Register,
       },
       {
         path: 'forgotten-password',

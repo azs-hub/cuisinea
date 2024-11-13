@@ -6,6 +6,7 @@ export const getFakeUser = (): User => {
   return {
     id: simpleFaker.string.uuid(),
     username: faker.person.firstName(),
+    email: faker.internet.email(),
     token: faker.internet.jwt(),
   }
 }
