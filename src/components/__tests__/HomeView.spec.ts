@@ -11,7 +11,7 @@ import { setActivePinia, createPinia } from 'pinia'
 // mockRecipes[0].tags[0].label = 'Test'
 // const category: RecipeCategory = { id: 'test', label: 'Test' }
 
-// vi.mock('@/utilities/services/recipe', () => ({
+// vi.mock('@/utilities/services/RecipeService', () => ({
 //   getLatestRecipes: () => mockRecipes,
 // }))
 

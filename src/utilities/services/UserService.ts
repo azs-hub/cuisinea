@@ -33,7 +33,7 @@ export const userRegister = async (username: string, email: string): Promise<Use
   }
 }
 
-export const fetechMyRecipes = async (
+export const fetchMyRecipes = async (
   listLength: number,
   currentPage: number
 ): Promise<Recipe[]> => {

@@ -3,7 +3,7 @@ import { Recipe, RecipeCategory } from '@/types/Recipe'
 import {
   getLatestRecipes as getLatestRecipeService,
   getAllRecipeCategories,
-} from '@/utilities/services/recipe'
+} from '@/utilities/services/RecipeService'
 
 interface State {
   recipeList: Recipe[]

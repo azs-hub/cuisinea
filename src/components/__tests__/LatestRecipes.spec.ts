@@ -17,7 +17,7 @@ const categoryMock: RecipeCategory = {
   label: 'Main',
 }
 
-vi.mock('@/utilities/services/recipe', () => ({
+vi.mock('@/utilities/services/RecipeService', () => ({
   getAllRecipeCategories: () => recipesCategories,
   getLatestRecipes: () => mockLatestRecipes,
 }))

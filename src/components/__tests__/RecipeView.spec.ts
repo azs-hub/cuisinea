@@ -3,12 +3,12 @@ import { mount } from '@vue/test-utils'
 import RecipeView from '@/views/RecipeView.vue'
 import { router } from './mock-router'
 import { getFakeRecipe, getFakeRecipes } from '@/mocks/recipe.mock'
-// import * as apiRecipeService from '@/utilities/services/recipe'
+// import * as apiRecipeService from '@/utilities/services/RecipeService'
 
 import { setActivePinia, createPinia } from 'pinia'
 // import { useCounterStore } from '../src/stores/counter'
 
-vi.mock('@/utilities/services/recipe', () => ({
+vi.mock('@/utilities/services/RecipeService', () => ({
   getRecipe: () => getFakeRecipe('uuid'),
   getLatestRecipes: () => getFakeRecipes(5),
 }))

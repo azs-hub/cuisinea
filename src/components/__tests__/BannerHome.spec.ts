@@ -10,7 +10,7 @@ import { useRecipesStore } from '@/stores/recipes'
 
 const recipesCategories: RecipeCategory[] = getFakeAllCategoriesRecipes()
 
-vi.mock('@/utilities/services/recipe', () => ({
+vi.mock('@/utilities/services/RecipeService', () => ({
   getAllRecipeCategories: () => recipesCategories,
 }))
 
