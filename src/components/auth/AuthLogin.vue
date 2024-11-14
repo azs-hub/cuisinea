@@ -1,9 +1,9 @@
 <template>
-  <div class="container mx-auto mt-10 register">
+  <div class="container mx-auto mt-10 login">
     <div>
       <HeaderTitle
-        title="Register"
-        description="Join the Cuisinea community"
+        title="Login"
+        description="We are happy to see you again"
       />
     </div>
 
@@ -35,46 +35,7 @@
         </PvFormField>
         <PvFormField
           v-slot="$field"
-          name="email"
-          initialValue=""
-          class="login-form--field"
-        >
-          <PvInputText
-            type="text"
-            placeholder="Email"
-          />
-          <PvMessage
-            v-if="$field?.invalid"
-            severity="error"
-            size="small"
-            variant="simple"
-            >{{ $field.error?.message }}</PvMessage
-          >
-        </PvFormField>
-        <PvFormField
-          v-slot="$field"
           name="password"
-          initialValue=""
-          class="login-form--field"
-        >
-          <PvPassword
-            placeholder="Password"
-            :feedback="false"
-            toggleMask
-            fluid
-            :inputProps="{ autocomplete: true }"
-          />
-          <PvMessage
-            v-if="$field?.invalid"
-            severity="error"
-            size="small"
-            variant="simple"
-            >{{ $field.error?.message }}</PvMessage
-          >
-        </PvFormField>
-        <PvFormField
-          v-slot="$field"
-          name="passwordConfirmation"
           initialValue=""
           class="login-form--field"
         >
@@ -104,9 +65,23 @@
         <PvButton
           type="submit"
           severity="secondary"
-          label="Register"
+          label="Log In"
         />
       </PvForm>
+      <div class="login-register">
+        <p>or</p>
+        <RouterLink
+          :to="{ name: 'register' }"
+          data-testid="login-register-btn"
+        >
+          <PvButton label="Register"
+        /></RouterLink>
+      </div>
+
+      <!-- Forgot Password Link -->
+      <div class="login-forgot-password">
+        <router-link to="/user/forgotten-password"> Forgot Password? </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -117,7 +92,7 @@ import HeaderTitle from '../shared/HeaderTitle.vue'
 import { z } from 'zod'
 import { zodResolver } from '@primevue/forms/resolvers/zod'
 import { useAuthStore } from '@/stores/user'
-import { userRegister } from '@/utilities/services/user'
+import { userLogin } from '@/utilities/services/user'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -133,9 +108,7 @@ const authStore = useAuthStore()
 const apiError = ref<string | null>(null)
 const initialValues = reactive({
   username: '',
-  email: '',
   password: '',
-  passwordConfirmation: '',
 })
 
 /*
@@ -143,50 +116,36 @@ const initialValues = reactive({
 */
 interface FormValues {
   username: string
-  email: string
   password: string
-  passwordConfirmation: string
 }
 
 const resolver = zodResolver(
-  z
-    .object({
-      username: z.string().min(1, { message: 'Username is required.' }),
-      email: z
-        .string()
-        .min(1, { message: 'Email is required.' })
-        .email({ message: 'Invalid email address.' }),
-      password: z
-        .string()
-        .min(3, { message: 'Minimum 3 characters.' })
-        .max(8, { message: 'Maximum 8 characters.' })
-        .refine((value) => /[a-z]/.test(value), {
-          message: 'Must have a lowercase letter.',
-        })
-        .refine((value) => /[A-Z]/.test(value), {
-          message: 'Must have an uppercase letter.',
-        })
-        .refine((value) => /\d/.test(value), {
-          message: 'Must have a number.',
-        }),
-      passwordConfirmation: z.string(),
-    })
-    .refine((data) => data.password === data.passwordConfirmation, {
-      message: "Passwords don't match",
-      path: ['passwordConfirmation'],
-    })
+  z.object({
+    username: z.string().min(1, { message: 'Username is required.' }),
+    password: z
+      .string()
+      .min(3, { message: 'Minimum 3 characters.' })
+      .max(8, { message: 'Maximum 8 characters.' })
+      .refine((value) => /[a-z]/.test(value), {
+        message: 'Must have a lowercase letter.',
+      })
+      .refine((value) => /[A-Z]/.test(value), {
+        message: 'Must have an uppercase letter.',
+      })
+      .refine((value) => /\d/.test(value), {
+        message: 'Must have a number.',
+      }),
+  })
 )
 
 const onFormSubmit = async ({ values, valid }: { values: FormValues; valid: boolean }) => {
   if (valid) {
     try {
-      const user = await userRegister(values.username, values.password)
+      const user = await userLogin(values.username, values.password)
       authStore.setUser(user)
       apiError.value = null
       router.push('/')
     } catch (error: any) {
-      console.log('error.message')
-      console.log(error.message)
       apiError.value = error.message || 'An error occurred. Please try again.'
     }
   }

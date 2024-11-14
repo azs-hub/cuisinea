@@ -5,7 +5,11 @@
   >
     <header>
       <h1 class="header-title__title">{{ title }}</h1>
-      <p class="header-title__description">{{ description }}</p>
+      <p
+        v-if="description"
+        class="header-title__description"
+        >{{ description }}</p
+      >
     </header>
   </div>
 </template>
@@ -13,7 +17,7 @@
 <script setup lang="ts">
 defineProps<{
   title: string
-  description: string
+  description?: string
 }>()
 </script>
 

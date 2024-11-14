@@ -3,8 +3,9 @@ import HomeView from '../views/HomeView.vue'
 import RecipeView from '../views/RecipeView.vue'
 import RecipesCategoryView from '../views/RecipesCategoryView.vue'
 import AuthView from '../views/AuthView.vue'
-import Login from '@/components/auth/Login.vue'
-import Register from '@/components/auth/Register.vue'
+import AuthLogin from '@/components/auth/AuthLogin.vue'
+import AuthRegister from '@/components/auth/AuthRegister.vue'
+import UserAccount from '@/components/auth/UserAccount.vue'
 
 const routes = [
   {
@@ -37,17 +38,27 @@ const routes = [
       {
         path: 'login',
         name: 'login',
-        component: Login,
+        component: AuthLogin,
       },
       {
         path: 'register',
         name: 'register',
-        component: Register,
+        component: AuthRegister,
       },
       {
         path: 'forgotten-password',
         name: 'forgotten-password',
-        component: Login,
+        component: AuthLogin,
+      },
+      {
+        path: 'my-account',
+        name: 'my-account',
+        component: UserAccount,
+      },
+      {
+        path: 'my-recipes',
+        name: 'my-recipes',
+        component: AuthLogin,
       },
     ],
   },

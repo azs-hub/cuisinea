@@ -114,8 +114,19 @@ const navigationItems = ref([
 const userMenu = ref()
 const userMenuItems = ref([
   {
-    label: 'Account',
     items: [
+      {
+        label: 'My account',
+        command: () => {
+          router.push({ name: 'my-account' })
+        },
+      },
+      {
+        label: 'My recipes',
+        command: () => {
+          router.push({ name: 'my-recipes' })
+        },
+      },
       {
         label: 'Logout',
         command: () => {
