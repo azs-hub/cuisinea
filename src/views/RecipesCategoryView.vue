@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Recipe, RecipeCategory } from '@/types/Recipe'
-import { getRecipesByCategoryId, getRecipeCategory } from '@/utilities/services/recipe'
+import { getRecipesByCategoryId, getRecipeCategory } from '@/utilities/services/RecipeService'
 import { useRoute } from 'vue-router'
 import RecipesList from '@/components/recipes/RecipeList.vue'
 import { getParamValue } from '@/utilities/helpers/stringUtils'

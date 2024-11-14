@@ -1,5 +1,7 @@
 import { User } from '@/types/User'
+import { Recipe } from '@/types/Recipe'
 import { getFakeUser } from '@/mocks/user.mock'
+import { getFakeRecipes } from '@/mocks/recipe.mock'
 
 const user = {
   username: 'John',
@@ -19,11 +21,7 @@ export const userLogin = async (username: string, password: string): Promise<Use
   }
 }
 
-export const userRegister = async (
-  username: string,
-  // password: string,
-  email: string
-): Promise<User> => {
+export const userRegister = async (username: string, email: string): Promise<User> => {
   try {
     if (username !== user.username && email !== user.email) {
       return getFakeUser()
@@ -32,5 +30,20 @@ export const userRegister = async (
     }
   } catch (error) {
     throw new Error('Register failed: ' + error.message)
+  }
+}
+
+export const fetechMyRecipes = async (
+  listLength: number,
+  currentPage: number
+): Promise<Recipe[]> => {
+  try {
+    if (listLength > 0 && currentPage) {
+      return await getFakeRecipes(listLength)
+    } else {
+      throw new Error('No recipes found')
+    }
+  } catch (error) {
+    throw new Error('My Recipes failed: ' + error.message)
   }
 }

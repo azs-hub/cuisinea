@@ -92,7 +92,7 @@ import HeaderTitle from '../shared/HeaderTitle.vue'
 import { z } from 'zod'
 import { zodResolver } from '@primevue/forms/resolvers/zod'
 import { useAuthStore } from '@/stores/user'
-import { userLogin } from '@/utilities/services/user'
+import { userLogin } from '@/utilities/services/UserService'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
