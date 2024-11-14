@@ -8,7 +8,7 @@
           :user="userData"
           :resolver="resolver"
           :api-error="apiError"
-          :label="'Register'"
+          :label="'Edit my profile'"
           @submit="onFormSubmit"
         />
       </div>
